@@ -1,0 +1,58 @@
+.panorama {
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.blurred {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.blurred img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.blurred::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    pointer-events: none;
+    z-index: 10;
+    animation: blur 1.5s normal forwards;
+    -webkit-animation: blur 1.5s normal forwards;
+}
+
+@keyframes blur {
+    from {
+        backdrop-filter: blur(15px);
+    }
+
+    to {
+        backdrop-filter: blur(0);
+    }
+}
+
+@-webkit-keyframes blur {
+    from {
+        -webkit-backdrop-filter: blur(15px);
+    }
+
+    to {
+        -webkit-backdrop-filter: blur(0);
+    }
+}

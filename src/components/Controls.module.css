@@ -1,0 +1,51 @@
+.controls {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 10px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(60, 60, 60, 0.600);
+}
+
+.buttons button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.buttons img {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+}
+
+/* for tables button size */
+@media (max-width: 768px) {
+    .buttons img {
+        width: 36px;
+        height: 36px;
+        margin: 0 8px;
+    }
+}
+
+/* for mobile button size */
+@media (max-width: 480px) {
+    .buttons img {
+        width: 32px;
+        height: 32px;
+        margin: 0 6px;
+    }
+}
+
+.buttons img:hover {
+    opacity: 0.5;
+}

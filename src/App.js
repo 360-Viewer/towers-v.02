@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext } from 'react';
+import { Route, Routes } from "react-router-dom";
+import Tour from "./pages/Tour";
+import Costum404 from "./pages/Costum404";
+import TourDetailed from './pages/TourDetailed';
+import styles from "./styles/App.module.css";
+
+export const AppContext = createContext();
 
 function App() {
+
+  // prevent right click
+  // useEffect(() => {
+  //   document.addEventListener("contextmenu", (e) => e.preventDefault());
+  // }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div onDragStart={(e) => e.preventDefault()} className={styles.app}>
+      <Routes>
+        <Route path={"/"} element={<Tour />} />
+        <Route path={`/:block/:floor/:view`} element={<TourDetailed />} />
+        <Route path={"/404"} element={<Costum404 />} />
+      </Routes>
     </div>
   );
 }
