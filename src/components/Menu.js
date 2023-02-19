@@ -5,7 +5,22 @@ import moon from "../assets/icons/moon.svg";
 import sun from "../assets/icons/sun.svg";
 import right from "../assets/icons/right.svg";
 import right_active from "../assets/icons/right-active.svg";
+import loader from "../assets/icons/loader.svg";
 import { useNavigate } from 'react-router-dom'
+
+const Preload = ({ level, block, view, onLoad }) => {
+    return (
+        <>
+            {/* loader */}
+            <div style={{ width: '100vw', height: '100vh', position: "absolute", top: 0, left: 0, zIndex: 100 }}>
+                <img src={loader} style={{ position: "absolute", top: "50%", left: "50%" }} />
+            </div>
+            <img src={panos[block][level]["preview"][view]} style={{ display: "none" }} />
+            <img src={panos[block][level][view]} style={{ display: "none" }} onLoad={onLoad} />
+        </>
+    )
+}
+
 
 export function useOutside(ref, setShow) {
     useEffect(() => {
@@ -53,10 +68,11 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
     return (
         <div>
             {preload &&
-                <>
-                    <img src={panos[currentImage.block][level]["preview"][currentImage.view]} style={{ display: "none" }} />
-                    <img src={panos[currentImage.block][level][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick(); }} />
-                </>
+                // <>
+                //     <img src={panos[currentImage.block][level]["preview"][currentImage.view]} style={{ display: "none" }} />
+                //     <img src={panos[currentImage.block][level][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick(); }} />
+                // </>
+                <Preload level={level} block={currentImage.block} view={currentImage.view} onLoad={() => { setPreload(false); handleClick(); }} />
             }
             <button className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}
                 onClick={() => setPreload(true)} >
@@ -131,10 +147,11 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
     return (
         <div>
             {preload &&
-                <>
-                    <img src={panos[block][Object.keys(panos[block])[0]]["preview"][currentImage.view]} style={{ display: "none" }} />
-                    <img src={panos[block][Object.keys(panos[block])[0]][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick() }} />
-                </>
+                // <>
+                //     <img src={panos[block][Object.keys(panos[block])[0]]["preview"][currentImage.view]} style={{ display: "none" }} />
+                //     <img src={panos[block][Object.keys(panos[block])[0]][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick() }} />
+                // </>
+                <Preload level={Object.keys(panos[block])[0]} block={block} view={currentImage.view} onLoad={() => { setPreload(false); handleClick() }} />
             }
             <div className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}>
                 <button className={styles.verticalContainerItem} style={{ backgroundColor: "transparent" }}
@@ -188,10 +205,11 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
             </div>
             <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
                 {preload &&
-                    <>
-                        <img src={panos[currentImage.block][currentImage.level]["preview"][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} />
-                        <img src={panos[currentImage.block][currentImage.level][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleViewClick() }} />
-                    </>
+                    // <>
+                    //     <img src={panos[currentImage.block][currentImage.level]["preview"][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} />
+                    //     <img src={panos[currentImage.block][currentImage.level][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleViewClick() }} />
+                    // </>
+                    <Preload level={currentImage.level} block={currentImage.block} view={currentImage.view === "day" ? "night" : "day"} onLoad={() => { setPreload(false); handleViewClick() }} />
                 }
                 <button className={styles.viewButton} onClick={() => setPreload(true)}>
                     <img
