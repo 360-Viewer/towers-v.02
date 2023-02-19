@@ -26,6 +26,7 @@ export function useOutside(ref, setShow) {
 
 const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => {
     const [isActive, setIsActive] = useState(false);
+    const [preload, setPreload] = useState(false);
 
     useEffect(() => {
         setIsActive(level === currentImage.level);
@@ -50,39 +51,48 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
     }
 
     return (
-        <button className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}
-            onClick={handleClick}>
-            <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
-                {level}
-            </p>
-        </button>
-    );
-};
-
-const NavigationItem = ({ block, level }) => {
-    const navigate = useNavigate();
-
-    function navigatePano() {
-        localStorage.removeItem('yaw');
-        localStorage.removeItem('pitch');
-        localStorage.removeItem('zoom');
-        navigate(`/${block}/${level}`);
-    }
-
-    return (
-        <div className={styles.navigationItem} onClick={navigatePano}>
-            <p className={styles.text}>
-                {level}
-            </p>
+        <div>
+            {preload &&
+                <>
+                    <img src={panos[currentImage.block][level]["preview"][currentImage.view]} style={{ display: "none" }} />
+                    <img src={panos[currentImage.block][level][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick(); }} />
+                </>
+            }
+            <button className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}
+                onClick={() => setPreload(true)} >
+                <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
+                    {level}
+                </p>
+            </button>
         </div>
     );
 };
 
+// const NavigationItem = ({ block, level }) => {
+//     const navigate = useNavigate();
+
+//     function navigatePano() {
+//         localStorage.removeItem('yaw');
+//         localStorage.removeItem('pitch');
+//         localStorage.removeItem('zoom');
+//         navigate(`/${block}/${level}`);
+//     }
+
+//     return (
+//         <div className={styles.navigationItem} onClick={navigatePano}>
+//             <p className={styles.text}>
+//                 {level}
+//             </p>
+//         </div>
+//     );
+// };
+
 
 const BlockItem = ({ block, currentImage, setCurrentImage }) => {
     const [isActive, setIsActive] = useState(false);
-    const [showLevelList, setShowLevelList] = useState(false);
+    // const [showLevelList, setShowLevelList] = useState(false);
     const levelListRef = React.useRef(null);
+    const [preload, setPreload] = useState(false);
 
     useEffect(() => {
         setIsActive(block === currentImage.block);
@@ -101,28 +111,34 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
         await setCurrentImage({ ...currentImage, block: block, level: Object.keys(panos[block])[0] });
     }
 
-    // close level list when clicked outside
-    useOutside(levelListRef, setShowLevelList);
+    // // close level list when clicked outside
+    // useOutside(levelListRef, setShowLevelList);
 
-    // close level list if escape key is pressed
-    useEffect(() => {
-        const handleEsc = (event) => {
-            if (event.keyCode === 27) {
-                setShowLevelList(false);
-            }
-        };
-        window.addEventListener("keydown", handleEsc);
+    // // close level list if escape key is pressed
+    // useEffect(() => {
+    //     const handleEsc = (event) => {
+    //         if (event.keyCode === 27) {
+    //             setShowLevelList(false);
+    //         }
+    //     };
+    //     window.addEventListener("keydown", handleEsc);
 
-        return () => {
-            window.removeEventListener("keydown", handleEsc);
-        };
-    }, []);
+    //     return () => {
+    //         window.removeEventListener("keydown", handleEsc);
+    //     };
+    // }, []);
 
     return (
         <div>
+            {preload &&
+                <>
+                    <img src={panos[block][Object.keys(panos[block])[0]]["preview"][currentImage.view]} style={{ display: "none" }} />
+                    <img src={panos[block][Object.keys(panos[block])[0]][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick() }} />
+                </>
+            }
             <div className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}>
                 <button className={styles.verticalContainerItem} style={{ backgroundColor: "transparent" }}
-                    onClick={handleClick}>
+                    onClick={() => setPreload(true)}>
                     <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
                         {block}
                     </p>
@@ -153,6 +169,7 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
     );
 };
 function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
+    const [preload, setPreload] = useState(false);
     async function handleViewClick() {
         await setCurrentImage({ ...currentImage, view: currentImage.view === "day" ? "night" : "day" });
     }
@@ -170,7 +187,13 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
                 })}
             </div>
             <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
-                <button className={styles.viewButton} onClick={handleViewClick}>
+                {preload &&
+                    <>
+                        <img src={panos[currentImage.block][currentImage.level]["preview"][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} />
+                        <img src={panos[currentImage.block][currentImage.level][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleViewClick() }} />
+                    </>
+                }
+                <button className={styles.viewButton} onClick={() => setPreload(true)}>
                     <img
                         src={currentImage.view === "day" ? moon : sun}
                         alt="view"
