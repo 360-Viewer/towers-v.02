@@ -93,7 +93,6 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
 
 const BlockItem = ({ block, currentImage, setCurrentImage }) => {
     const [isActive, setIsActive] = useState(false);
-    const levelListRef = React.useRef(null);
     const [preload, setPreload] = useState(false);
 
     useEffect(() => {
