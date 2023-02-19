@@ -14,8 +14,8 @@ const Preload = ({ level, block, view, onLoad }) => {
             <div style={{ width: '100vw', height: '100vh', position: "absolute", top: 0, left: 0, zIndex: 100 }}>
                 <img src={loader} style={{ position: "absolute", top: "50%", left: "50%" }} />
             </div>
-            <img src={panos[block][level]["preview"][view]} style={{ display: "none" }} />
-            <img src={panos[block][level][view]} style={{ display: "none" }} onLoad={onLoad} />
+            <img src={panos[block][level]["preview"][view]} style={{ display: "none" }} onLoad={onLoad} />
+            {/* <img src={panos[block][level][view]} style={{ display: "none" }} onLoad={onLoad} /> */}
         </>
     )
 }
