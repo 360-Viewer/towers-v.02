@@ -43,10 +43,17 @@ function Controls({ photoSphereRef, homeExist }) {
         });
     }
 
+    const handleHomeClick = () => {
+        localStorage.removeItem('yaw');
+        localStorage.removeItem('pitch');
+        localStorage.removeItem('zoom');
+        navigate("/");
+    }
+
     return (
         <div className={styles.controls}>
             <div className={styles.buttons}>
-                {homeExist && <button onClick={() => navigate("/")}>
+                {homeExist && <button onClick={handleHomeClick}>
                     <img src={home} />
                 </button>}
                 <button onClick={handleLeftClick}>
@@ -67,7 +74,6 @@ function Controls({ photoSphereRef, homeExist }) {
                 <button onClick={() => { photoSphereRef.current.toggleFullscreen(); }}>
                     <img src={fullscreen} />
                 </button>
-
             </div>
         </div>
     )

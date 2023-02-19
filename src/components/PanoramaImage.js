@@ -17,7 +17,7 @@ const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded, photoSphereRef, homeExist 
         yaw: localStorage.getItem('yaw'),
         pitch: localStorage.getItem('pitch'),
         zoom: localStorage.getItem('zoom'),
-        speed: '4rpm'
+        speed: '5rpm'
       });
     }, 2500);
   }, [photoSphereRef]);

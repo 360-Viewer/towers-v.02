@@ -38,7 +38,7 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
                 yaw: 0,
                 pitch: 0,
                 zoom: 10,
-                speed: '4rpm',
+                speed: '5rpm',
             });
             return;
         }
