@@ -1,53 +1,51 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
 import Controls from "./Controls";
 import styles from "./PanoramaImage.module.css"
 
-const PSVImage = ({ src, setIsLoaded }) => {
+
+const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded }) => {
   const photoSphereRef = useRef(null);
 
   return (
     <>
-      <ReactPhotoSphereViewer
+      {<ReactPhotoSphereViewer
         containerClass={styles.panorama}
         ref={photoSphereRef}
         loadingImg={null}
         loadingTxt={null}
         width={"100%"}
         height={'100vh'}
-        // sphereCorrection={{pan: 0, tilt: 0, roll: 0}}
         src={src}
         defaultZoomLvl={10}
         navbar={false}
         onReady={() => {
-          // after 1.5 seconds, the image is considered loaded for animation purposes
-          // setTimeout(() => {
-          //   setIsLoaded(true);
-          // }, 1500);
-          setIsLoaded(true);
+          // render delay to prevent flickering
+          setTimeout(() => {
+            setIsPSVLoaded(true);
+          }, 1500);
         }}
-      ></ReactPhotoSphereViewer>
-      <Controls photoSphereRef={photoSphereRef} />
+      ></ReactPhotoSphereViewer>}
+      {isPSVLoaded && <Controls photoSphereRef={photoSphereRef} />}
     </>
   );
 };
 
 
-function PanoramaImage({ src, blr }) {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [show, setShow] = useState(true);
+function PanoramaImage({ src, prv }) {
+  const [isPSVLoaded, setIsPSVLoaded] = useState(false);
+  const [showPSVImage, setShowPSVImage] = useState(false);
 
   return (
     <>
-      {/* {!isLoaded &&
-        <div className={styles.blurred}>
-          <img src={blr}
+      {!isPSVLoaded &&
+        <div className={styles.blurred} useRef={prv}>
+          <img src={prv}
             alt="loading"
-            onLoad={() => setShow(true)}
+            onLoad={() => setShowPSVImage(true)}
           />
-        </div>} */}
-      {show && <PSVImage src={src} setIsLoaded={setIsLoaded} />}
-      {/* {!isLoaded && <Controls />} */}
+        </div>}
+      {showPSVImage && <PSVImage src={src} setIsPSVLoaded={setIsPSVLoaded} isPSVLoaded={isPSVLoaded} />}
     </>
   )
 }
