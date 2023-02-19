@@ -11,7 +11,6 @@ import { useNavigate } from 'react-router-dom'
 const Preload = ({ level, block, view, onLoad }) => {
     return (
         <>
-            {/* loader */}
             <div style={{ width: '100vw', height: '100vh', position: "absolute", top: 0, left: 0, zIndex: 100 }}>
                 <img src={loader} style={{ position: "absolute", top: "50%", left: "50%" }} />
             </div>
@@ -68,14 +67,22 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
     return (
         <div>
             {preload &&
-                // <>
-                //     <img src={panos[currentImage.block][level]["preview"][currentImage.view]} style={{ display: "none" }} />
-                //     <img src={panos[currentImage.block][level][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick(); }} />
-                // </>
-                <Preload level={level} block={currentImage.block} view={currentImage.view} onLoad={() => { setPreload(false); handleClick(); }} />
+                <Preload level={level}
+                    block={currentImage.block}
+                    view={currentImage.view}
+                    onLoad={() => {
+                        setPreload(false);
+                        handleClick();
+                    }} />
             }
             <button className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}
-                onClick={() => setPreload(true)} >
+                onClick={() => {
+                    if (level === currentImage.level) {
+                        handleClick();
+                        return;
+                    }
+                    setPreload(true);
+                }}>
                 <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
                     {level}
                 </p>
@@ -84,29 +91,8 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
     );
 };
 
-// const NavigationItem = ({ block, level }) => {
-//     const navigate = useNavigate();
-
-//     function navigatePano() {
-//         localStorage.removeItem('yaw');
-//         localStorage.removeItem('pitch');
-//         localStorage.removeItem('zoom');
-//         navigate(`/${block}/${level}`);
-//     }
-
-//     return (
-//         <div className={styles.navigationItem} onClick={navigatePano}>
-//             <p className={styles.text}>
-//                 {level}
-//             </p>
-//         </div>
-//     );
-// };
-
-
 const BlockItem = ({ block, currentImage, setCurrentImage }) => {
     const [isActive, setIsActive] = useState(false);
-    // const [showLevelList, setShowLevelList] = useState(false);
     const levelListRef = React.useRef(null);
     const [preload, setPreload] = useState(false);
 
@@ -127,61 +113,24 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
         await setCurrentImage({ ...currentImage, block: block, level: Object.keys(panos[block])[0] });
     }
 
-    // // close level list when clicked outside
-    // useOutside(levelListRef, setShowLevelList);
-
-    // // close level list if escape key is pressed
-    // useEffect(() => {
-    //     const handleEsc = (event) => {
-    //         if (event.keyCode === 27) {
-    //             setShowLevelList(false);
-    //         }
-    //     };
-    //     window.addEventListener("keydown", handleEsc);
-
-    //     return () => {
-    //         window.removeEventListener("keydown", handleEsc);
-    //     };
-    // }, []);
-
     return (
         <div>
             {preload &&
-                // <>
-                //     <img src={panos[block][Object.keys(panos[block])[0]]["preview"][currentImage.view]} style={{ display: "none" }} />
-                //     <img src={panos[block][Object.keys(panos[block])[0]][currentImage.view]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleClick() }} />
-                // </>
                 <Preload level={Object.keys(panos[block])[0]} block={block} view={currentImage.view} onLoad={() => { setPreload(false); handleClick() }} />
             }
             <div className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}>
                 <button className={styles.verticalContainerItem} style={{ backgroundColor: "transparent" }}
-                    onClick={() => setPreload(true)}>
+                    onClick={() => {
+                        if (block === currentImage.block) {
+                            return;
+                        }
+                        setPreload(true);
+                    }}>
                     <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
                         {block}
                     </p>
                 </button>
-                {/* <div className={styles.rightWrapper}>
-                    <img src={isActive ? right_active : right} className={styles.icon} onClick={() => setShowLevelList(!showLevelList)} />
-                </div> */}
             </div >
-            {/* list of levels */}
-            {/* {showLevelList &&
-                <div className={styles.navigationList} ref={levelListRef}>
-                    <div className={styles.navigationHeader}>
-                        <p className={styles.text}>
-                            {`${block} Blok`}
-                        </p>
-                    </div>
-                    {Object.keys(panos[block]).map((level) => {
-                        return (
-                            <NavigationItem
-                                key={level}
-                                block={block}
-                                level={level}
-                            />
-                        );
-                    })}
-                </div>} */}
         </div>
     );
 };
@@ -205,10 +154,6 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
             </div>
             <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
                 {preload &&
-                    // <>
-                    //     <img src={panos[currentImage.block][currentImage.level]["preview"][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} />
-                    //     <img src={panos[currentImage.block][currentImage.level][currentImage.view === "day" ? "night" : "day"]} style={{ display: "none" }} onLoad={() => { setPreload(false); handleViewClick() }} />
-                    // </>
                     <Preload level={currentImage.level} block={currentImage.block} view={currentImage.view === "day" ? "night" : "day"} onLoad={() => { setPreload(false); handleViewClick() }} />
                 }
                 <button className={styles.viewButton} onClick={() => setPreload(true)}>
