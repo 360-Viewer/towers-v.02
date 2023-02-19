@@ -14,7 +14,6 @@ export function useOutside(ref, setShow) {
                 setShow(false);
             }
         }
-        console.log("useOutside");
         // Bind the event listener
         document.addEventListener("mousedown", handleClickOutside);
         return () => {

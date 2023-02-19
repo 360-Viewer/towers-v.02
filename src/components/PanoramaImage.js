@@ -1,12 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
 import Controls from "./Controls";
 import styles from "./PanoramaImage.module.css"
-import loader from "../assets/icons/loader.svg";
 
 const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded, photoSphereRef, homeExist }) => {
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!photoSphereRef.current)
       return;
     if (localStorage.getItem('yaw') === null || localStorage.getItem('pitch') === null || localStorage.getItem('zoom') === null) {

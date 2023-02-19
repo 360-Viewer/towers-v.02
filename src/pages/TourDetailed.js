@@ -21,6 +21,9 @@ function TourDetailed() {
 
     const handleViewClick = () => {
         setView(view === "day" ? "night" : "day");
+        localStorage.setItem('yaw', photoSphereRef.current.getPosition().yaw);
+        localStorage.setItem('pitch', photoSphereRef.current.getPosition().pitch);
+        localStorage.setItem('zoom', photoSphereRef.current.getZoomLevel());
         reset();
     }
 
