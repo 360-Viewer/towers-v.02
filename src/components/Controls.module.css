@@ -9,6 +9,13 @@
     padding: 10px;
 }
 
+@media (max-width: 768px) {
+    .controls {
+        padding: 8px;
+        bottom: 20px;
+    }
+}
+
 .buttons {
     display: flex;
     justify-content: center;
