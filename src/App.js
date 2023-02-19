@@ -18,9 +18,9 @@ function App() {
   return (
     <div onDragStart={(e) => e.preventDefault()} className={styles.app}>
       {/* load images here */}
-      {/* {previewImages.map((img) => (
+      {previewImages.map((img) => (
         <img src={img} alt="loading" style={{ display: "none" }} />
-      ))} */}
+      ))}
       <Routes>
         <Route path={"/"} element={<Tour />} />
         <Route path={`/:block/:level/`} element={<TourDetailed />} />
