@@ -45,7 +45,7 @@ const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded, photoSphereRef, homeExist 
               zoom: localStorage.getItem('zoom'),
               speed: '5rpm'
             });
-          }, 2000);
+          }, 1);
         }}
       ></ReactPhotoSphereViewer>}
       {isPSVLoaded && <Controls photoSphereRef={photoSphereRef} homeExist={homeExist} />}
