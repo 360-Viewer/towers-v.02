@@ -172,7 +172,6 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
                 <button className={styles.viewButton} onClick={() => setPreload(true)}>
                     <img
                         src={currentImage.view === "day" ? moon : sun}
-                        alt="view"
                         className={styles.icon} />
                 </button>
                 {Object.keys(panos[currentImage.block]).map((level) => {

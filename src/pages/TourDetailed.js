@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { redirect, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { panos } from '../assets/constants';
 import PanoramaImage from '../components/PanoramaImage';
 import moon from "../assets/icons/moon.svg";
@@ -33,7 +33,6 @@ function TourDetailed() {
                 <button className={styles.viewButton} onClick={handleViewClick}>
                     <img
                         src={view === "day" ? moon : sun}
-                        alt="view"
                         className={styles.icon} />
                 </button>
             </div>
