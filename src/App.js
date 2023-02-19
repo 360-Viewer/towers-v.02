@@ -4,7 +4,7 @@ import Tour from "./pages/Tour";
 import Costum404 from "./pages/Costum404";
 import TourDetailed from './pages/TourDetailed';
 import styles from "./styles/App.module.css";
-import { previewImages } from './assets/constants';
+import { allImages, previewImages } from './assets/constants';
 
 export const AppContext = createContext();
 
@@ -18,7 +18,7 @@ function App() {
   return (
     <div onDragStart={(e) => e.preventDefault()} className={styles.app}>
       {/* load images here */}
-      {previewImages.map((img) => (
+      {allImages.map((img) => (
         <img src={img} alt="loading" style={{ display: "none" }} />
       ))}
       <Routes>
