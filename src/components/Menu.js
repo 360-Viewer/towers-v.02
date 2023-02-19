@@ -116,7 +116,13 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
     return (
         <div>
             {preload &&
-                <Preload level={Object.keys(panos[block])[0]} block={block} view={currentImage.view} onLoad={() => { setPreload(false); handleClick() }} />
+                <Preload
+                    level={Object.keys(panos[block])[0]}
+                    block={block} view={currentImage.view}
+                    onLoad={() => {
+                        setPreload(false);
+                        handleClick();
+                    }} />
             }
             <div className={`${styles.verticalContainerItem} ${isActive ? styles.verticalContainerItemActive : ""}`}>
                 <button className={styles.verticalContainerItem} style={{ backgroundColor: "transparent" }}
@@ -154,7 +160,14 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
             </div>
             <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
                 {preload &&
-                    <Preload level={currentImage.level} block={currentImage.block} view={currentImage.view === "day" ? "night" : "day"} onLoad={() => { setPreload(false); handleViewClick() }} />
+                    <Preload
+                        level={currentImage.level}
+                        block={currentImage.block}
+                        view={currentImage.view === "day" ? "night" : "day"}
+                        onLoad={() => {
+                            setPreload(false);
+                            handleViewClick();
+                        }} />
                 }
                 <button className={styles.viewButton} onClick={() => setPreload(true)}>
                     <img

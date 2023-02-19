@@ -5,21 +5,16 @@ import styles from "./PanoramaImage.module.css"
 
 const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded, photoSphereRef, homeExist }) => {
 
-  useEffect(() => {
-    if (!photoSphereRef.current)
-      return;
-    if (localStorage.getItem('yaw') === null || localStorage.getItem('pitch') === null || localStorage.getItem('zoom') === null) {
-      return;
-    }
-    setTimeout(() => {
-      photoSphereRef.current.animate({
-        yaw: localStorage.getItem('yaw'),
-        pitch: localStorage.getItem('pitch'),
-        zoom: localStorage.getItem('zoom'),
-        speed: '5rpm'
-      });
-    }, 3500);
-  }, [photoSphereRef]);
+  // useEffect(() => {
+  //   if (!photoSphereRef.current)
+  //     return;
+  //   if (localStorage.getItem('yaw') === null || localStorage.getItem('pitch') === null || localStorage.getItem('zoom') === null) {
+  //     return;
+  //   }
+  //   setTimeout(() => {
+
+  //   }, 3000);
+  // }, [photoSphereRef]);
 
   return (
     <>
@@ -40,6 +35,16 @@ const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded, photoSphereRef, homeExist 
           // render delay to prevent flickering
           setTimeout(() => {
             setIsPSVLoaded(true);
+
+            if (localStorage.getItem('yaw') === null || localStorage.getItem('pitch') === null || localStorage.getItem('zoom') === null) {
+              return;
+            }
+            photoSphereRef.current.animate({
+              yaw: localStorage.getItem('yaw'),
+              pitch: localStorage.getItem('pitch'),
+              zoom: localStorage.getItem('zoom'),
+              speed: '5rpm'
+            });
           }, 2000);
         }}
       ></ReactPhotoSphereViewer>}
