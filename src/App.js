@@ -25,6 +25,7 @@ function App() {
         <Route path={"/"} element={<Tour />} />
         <Route path={`/:block/:level/`} element={<TourDetailed />} />
         <Route path={"/404"} element={<Costum404 />} />
+        <Route path="*" element={<Costum404 />} />
       </Routes>
     </div>
   );

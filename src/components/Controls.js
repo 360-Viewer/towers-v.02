@@ -44,9 +44,8 @@ function Controls({ photoSphereRef, homeExist }) {
     }
 
     const handleHomeClick = () => {
-        localStorage.removeItem('yaw');
-        localStorage.removeItem('pitch');
-        localStorage.removeItem('zoom');
+        // clear local storage
+        localStorage.clear();
         navigate("/");
     }
 

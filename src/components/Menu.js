@@ -127,7 +127,7 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
                         setPreload(true);
                     }}>
                     <p className={`${styles.text} ${isActive ? styles.textActive : ""}`}>
-                        {block}
+                        {block.replace(/-/g, ' ')}
                     </p>
                 </button>
             </div >

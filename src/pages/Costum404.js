@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function Costum404() {
@@ -30,6 +30,10 @@ function Costum404() {
             marginTop: '1rem',
         },
     }
+
+    useEffect(() => {
+        localStorage.clear();
+    }, [])
 
     return (
         <div style={styles.container}>

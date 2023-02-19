@@ -1,5 +1,5 @@
 export const panos = {
-    "A Block": {
+    "A-Block": {
         "L100": {
             "day": require("../assets/panos/a-block/l-100/day.jpg"),
             "night": require("../assets/panos/a-block/l-100/night.jpg"),
@@ -57,7 +57,7 @@ export const panos = {
             }
         },
     },
-    "B Block": {
+    "B-Block": {
         "L125": {
             "day": require("../assets/panos/b-block/l-125/day.jpg"),
             "night": require("../assets/panos/b-block/l-125/night.jpg"),
@@ -131,7 +131,7 @@ export const panos = {
             },
         },
     },
-    "C Block": {
+    "C-Block": {
         "L100": {
             "day": require("../assets/panos/c-block/l-100/day.jpg"),
             "night": require("../assets/panos/c-block/l-100/night.jpg"),
