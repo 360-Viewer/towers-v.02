@@ -33,26 +33,34 @@
     cursor: default;
     pointer-events: none;
     z-index: 10;
-    animation: blur 1.5s normal forwards;
-    -webkit-animation: blur 1.5s normal forwards;
+    animation: blur 3s normal forwards;
+    -webkit-animation: blur 3s normal forwards;
 }
 
 @keyframes blur {
     from {
-        backdrop-filter: blur(20px);
+        backdrop-filter: blur(15px);
     }
 
     to {
-        backdrop-filter: blur(0);
+        backdrop-filter: blur(3px);
     }
 }
 
 @-webkit-keyframes blur {
     from {
-        -webkit-backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(15px);
     }
 
     to {
-        -webkit-backdrop-filter: blur(0);
+        -webkit-backdrop-filter: blur(3px);
     }
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 10000;
+    opacity: 0.5;
 }

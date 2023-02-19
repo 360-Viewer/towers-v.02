@@ -2,10 +2,25 @@ import React, { useRef, useState, useEffect } from "react";
 import { ReactPhotoSphereViewer } from "react-photo-sphere-viewer";
 import Controls from "./Controls";
 import styles from "./PanoramaImage.module.css"
+import loader from "../assets/icons/loader.svg";
 
+const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded, photoSphereRef, homeExist }) => {
 
-const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded }) => {
-  const photoSphereRef = useRef(null);
+  React.useEffect(() => {
+    if (!photoSphereRef.current)
+      return;
+    if (localStorage.getItem('yaw') === null || localStorage.getItem('pitch') === null || localStorage.getItem('zoom') === null) {
+      return;
+    }
+    setTimeout(() => {
+      photoSphereRef.current.animate({
+        yaw: localStorage.getItem('yaw'),
+        pitch: localStorage.getItem('pitch'),
+        zoom: localStorage.getItem('zoom'),
+        speed: '4rpm'
+      });
+    }, 2500);
+  }, [photoSphereRef]);
 
   return (
     <>
@@ -13,6 +28,9 @@ const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded }) => {
         containerClass={styles.panorama}
         ref={photoSphereRef}
         loadingImg={null}
+        // defaultYaw={localStorage.getItem('yaw') || 0}
+        // defaultPitch={localStorage.getItem('pitch') || 0}
+        // defaultZoom={localStorage.getItem('zoom') || 0}
         loadingTxt={null}
         width={"100%"}
         height={'100vh'}
@@ -23,29 +41,38 @@ const PSVImage = ({ src, setIsPSVLoaded, isPSVLoaded }) => {
           // render delay to prevent flickering
           setTimeout(() => {
             setIsPSVLoaded(true);
-          }, 1500);
+          }, 2000);
         }}
       ></ReactPhotoSphereViewer>}
-      {isPSVLoaded && <Controls photoSphereRef={photoSphereRef} />}
+      {isPSVLoaded && <Controls photoSphereRef={photoSphereRef} homeExist={homeExist} />}
     </>
   );
 };
 
 
-function PanoramaImage({ src, prv }) {
+function PanoramaImage({ src, prv, photoSphereRef, homeExist }) {
   const [isPSVLoaded, setIsPSVLoaded] = useState(false);
   const [showPSVImage, setShowPSVImage] = useState(false);
 
   return (
     <>
       {!isPSVLoaded &&
-        <div className={styles.blurred} useRef={prv}>
-          <img src={prv}
-            alt="loading"
-            onLoad={() => setShowPSVImage(true)}
-          />
-        </div>}
-      {showPSVImage && <PSVImage src={src} setIsPSVLoaded={setIsPSVLoaded} isPSVLoaded={isPSVLoaded} />}
+        <>
+          <div className={styles.blurred} useRef={prv}>
+            <img src={prv}
+              onLoad={() => setShowPSVImage(true)}
+            />
+          </div>
+        </>
+      }
+      {showPSVImage && <PSVImage
+        src={src}
+        setIsPSVLoaded={setIsPSVLoaded}
+        isPSVLoaded={isPSVLoaded}
+        photoSphereRef={photoSphereRef}
+        homeExist={homeExist}
+      />}
+      {!isPSVLoaded && <Controls photoSphereRef={null} homeExist={homeExist} />}
     </>
   )
 }

@@ -23,7 +23,7 @@ function App() {
       ))}
       <Routes>
         <Route path={"/"} element={<Tour />} />
-        <Route path={`/:block/:floor/:view`} element={<TourDetailed />} />
+        <Route path={`/:block/:level/`} element={<TourDetailed />} />
         <Route path={"/404"} element={<Costum404 />} />
       </Routes>
     </div>
