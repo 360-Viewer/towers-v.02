@@ -127,12 +127,12 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
                         {block}
                     </p>
                 </button>
-                <div className={styles.rightWrapper}>
+                {/* <div className={styles.rightWrapper}>
                     <img src={isActive ? right_active : right} className={styles.icon} onClick={() => setShowLevelList(!showLevelList)} />
-                </div>
+                </div> */}
             </div >
             {/* list of levels */}
-            {showLevelList &&
+            {/* {showLevelList &&
                 <div className={styles.navigationList} ref={levelListRef}>
                     <div className={styles.navigationHeader}>
                         <p className={styles.text}>
@@ -148,8 +148,7 @@ const BlockItem = ({ block, currentImage, setCurrentImage }) => {
                             />
                         );
                     })}
-                </div>
-            }
+                </div>} */}
         </div>
     );
 };
@@ -159,7 +158,7 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
     }
     return (
         <>
-            <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
+            <div className={styles.verticalContainer} style={{ right: "12px", top: "12px" }}>
                 {Object.keys(panos).map((block) => {
                     return (
                         <BlockItem
@@ -170,7 +169,7 @@ function Menu({ currentImage, setCurrentImage, photoSphereRef }) {
                     );
                 })}
             </div>
-            <div className={styles.verticalContainer} style={{ right: "12px", top: "12px" }}>
+            <div className={styles.verticalContainer} style={{ left: "12px", top: "12px" }}>
                 <button className={styles.viewButton} onClick={handleViewClick}>
                     <img
                         src={currentImage.view === "day" ? moon : sun}
