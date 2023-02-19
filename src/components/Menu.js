@@ -54,13 +54,15 @@ const LevelItem = ({ level, currentImage, setCurrentImage, photoSphereRef }) => 
                 zoom: 10,
                 speed: '5rpm',
             });
+            localStorage.setItem('yaw', 0);
+            localStorage.setItem('pitch', 0);
+            localStorage.setItem('zoom', 10);
             return;
         }
         // add pitch yaw and zoom to local storage
         localStorage.setItem('yaw', photoSphereRef.current.getPosition().yaw);
         localStorage.setItem('pitch', photoSphereRef.current.getPosition().pitch);
         localStorage.setItem('zoom', photoSphereRef.current.getZoomLevel());
-
         await setCurrentImage({ ...currentImage, level: level });
     }
 
